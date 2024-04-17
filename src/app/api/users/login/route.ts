@@ -20,6 +20,11 @@ export async function POST(request : NextRequest){
             message : "User not found"
         },{status:400})
     }
+    if(!user.isVerified){
+        return NextResponse.json({
+            message : "Email not verified please check your mail"
+        },{status:400})
+    }
 
     const isMatchPassword = await bycryptjs.compare(password , user.password)
     if(!isMatchPassword){

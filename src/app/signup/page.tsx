@@ -1,15 +1,18 @@
 "use client"
 import axios from 'axios'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
-import toast, { Toaster } from 'react-hot-toast'
+import {toast} from 'react-hot-toast'
 
 export default function SignUppage() {
+    const router = useRouter()
     const [userData, setUserdata] = useState({
         username:'',
         email:'',
         password:'',
     })
+    
 
     const handleSubmit = async (e:any) => {
         e.preventDefault()
@@ -20,16 +23,17 @@ export default function SignUppage() {
             toast.success("Sign Up Successfull",{
                 position:"bottom-left"
             })
+            router.push("/login")
         } catch (error:any) {
             console.log(error?.response?.data?.message)
-            toast.error("user Sign up error",{
-                position:"top-center"
+            toast.error(error?.response?.data?.message,{
+                position:"bottom-center"
             })
         }
     }
+    
     return (
         <div className=' flex justify-center min-h-screen'>
-        <Toaster />
             <div className="mt-36">
                 <h1 className=" text-3xl ">Sign Up</h1>
                 <form  onSubmit={handleSubmit} className=' mt-12 flex flex-col gap-5'>

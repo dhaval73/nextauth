@@ -18,7 +18,7 @@ export async function POST(request : NextRequest){
         }
 
         user.isVerified = true
-        user.verifyemail = undefined
+        user.verifyToken = undefined
         user.verifyTokenExpiry = undefined
 
         await user.save()
